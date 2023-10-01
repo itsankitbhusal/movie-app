@@ -60,7 +60,7 @@ const MovieDetail = () => {
         <div className=" flex items-center gap-8 justify-center ">
           <div className=" grid place-items-center w-2/12 h-[750px] bg-cover relative">
             <div>
-              <button onClick={handleBack} className=" hover:bg-gray-600 hover:text-white text-gray-600 outline outline-2 hover: outline-gray-600 transition-all rounded-lg shadow-2xl absolute z-10 top-32 w-auto px-7 py-3 font-semibold flex place-items-center gap-4">
+              <button onClick={handleBack} className=" hover:bg-gray-600 hover:text-white text-gray-600 outline outline-2 hover: outline-gray-600 transition-all rounded-lg shadow-2xl absolute z-10 top-32 w-auto px-5 py-2 font-semibold flex place-items-center gap-4">
                 <span className=" flex items-center  justify-center -ml-1 w-full gap-4">
                 <BiArrowBack className=" text-2xl "/>
                 Back
