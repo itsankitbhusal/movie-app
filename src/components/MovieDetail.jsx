@@ -11,22 +11,60 @@ const MovieDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
+  const [trailerLink, setTrailerLink] = useState("");
+  const [trailerLoading, setTrailerLoading] = useState(false);
 
   const fetchMovie = async () => {
     const baseUrl = import.meta.env.VITE_API_MOVIE_URL;
-    const response = await axios.get(`${baseUrl}/${id}`, {
-      params: {
-        api_key: import.meta.env.VITE_API_KEY,
-      },
-    });
+    try {
+      const response = await axios.get(`${baseUrl}/${id}`, {
+        params: {
+          api_key: import.meta.env.VITE_API_KEY,
+        },
+      });
 
-    const data = await response.data;
-    setMovie(data);
+      const data = await response.data;
+      setMovie(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     fetchMovie();
   }, []);
+
+  const fetchTrailerFromYoutube = async () => {
+    setTrailerLoading(true);
+    try {
+      const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+
+      const response = await axios.get(
+        "https://www.googleapis.com/youtube/v3/search",
+        {
+          params: {
+            q: `${movie.title} ${movie.release_date} official trailer`,
+            key: apiKey,
+            part: "snippet",
+            type: "video",
+          },
+        }
+      );
+      const trailerLink = `${response.data.items[0].id.videoId}`;
+      console.log("response from yt", response.data);
+      console.log(trailerLink);
+      setTrailerLink(trailerLink);
+      setTrailerLoading(false);
+    } catch (error) {
+      setTrailerLoading(false);
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    if (movie?.title) {
+      fetchTrailerFromYoutube();
+    }
+  }, [movie]);
 
   if (!movie) {
     return <div>Loading...</div>;
@@ -45,8 +83,8 @@ const MovieDetail = () => {
     });
   };
   const handleBack = () => {
-    navigate("/")
-  }
+    navigate("/");
+  };
   return (
     <div className="relative">
       <div className="h-screen max-h-screen absolute -z-10 inset-0 opacity-60 overflow-hidden">
@@ -60,10 +98,13 @@ const MovieDetail = () => {
         <div className=" flex items-center gap-8 justify-center ">
           <div className=" grid place-items-center w-2/12 h-[750px] bg-cover relative">
             <div>
-              <button onClick={handleBack} className=" hover:bg-gray-600 hover:text-white text-gray-600 outline outline-2 hover: outline-gray-600 transition-all rounded-lg shadow-2xl absolute z-10 top-32 w-auto px-5 py-2 font-semibold flex place-items-center gap-4">
+              <button
+                onClick={handleBack}
+                className=" hover:bg-gray-600 hover:text-white text-gray-600 outline outline-2 hover: outline-gray-600 transition-all rounded-lg shadow-2xl absolute z-10 top-32 w-auto px-5 py-2 font-semibold flex place-items-center gap-4"
+              >
                 <span className=" flex items-center  justify-center -ml-1 w-full gap-4">
-                <BiArrowBack className=" text-2xl "/>
-                Back
+                  <BiArrowBack className=" text-2xl " />
+                  Back
                 </span>
               </button>
               <img
@@ -128,6 +169,19 @@ const MovieDetail = () => {
             </div>
           </div>
         </div>
+      </div>
+      {/* set trailer */}
+      <div className=" grid place-items-center h-screen">
+        {/*       // <iframe width="978" height="550" src="https://www.youtube.com/embed/5BbjtdPb-KA" ></iframe> */}
+        {trailerLoading ? (
+          "Fetching trailer data"
+        ) : (
+          <iframe
+            className=" w-full h-full"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            src={`https://www.youtube.com/embed/${trailerLink}`}
+          ></iframe>
+        )}
       </div>
     </div>
   );
