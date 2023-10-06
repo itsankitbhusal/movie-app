@@ -6,3 +6,23 @@
 * {
   font-family: Inter, Helvetica, sans-serif;
 }
+.aspect-ratio-poster {
+  aspect-ratio: 2 / 3;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #60a5fa;
+  border-radius: 100px;
+}
+
+.scrollbar-width-auto {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thumb-blue {
+  scrollbar-color: #60a5fa #fff;
+  border-radius: 100px;
+}
