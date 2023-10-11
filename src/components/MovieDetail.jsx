@@ -135,7 +135,7 @@ const MovieDetail = () => {
                     : "/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
                 }`}
                 alt={movie.title}
-                className="aspect-ratio-poster h-[50vh] w-auto rounded-none"
+                className="aspect-ratio-poster h-[50vh] w-auto rounded"
               />
             </div>
             <div className="w-full flex flex-col justify-start items-center sm:w-8/12 md:w-6/12 px-2 ">
@@ -143,9 +143,6 @@ const MovieDetail = () => {
                 <div className=" mb-4">
                   <h1 className=" font-bold sm:text-xl md:text-2xl md:font-black lg:text-4xl ">
                     {movie.title}{" "}
-                    <span className=" font-semibold">
-                      ({movie.release_date.split("-")[0]})
-                    </span>
                   </h1>
 
                   <span className=" text-gray-600 flex items-center gap-2 text-xs sm:text-md">
@@ -158,6 +155,26 @@ const MovieDetail = () => {
                       </>
                     )}
                   </span>
+
+                  <div className=" flex gap-4 items-center text-xs md:text-base mt-4">
+                  <span className="font-semibold flex items-center gap-2">
+                    <AiFillHeart className=" text-xs md:text-base lg:text-xl text-red-600" />
+                    {movie.vote_count}{" "}
+                  </span>
+                  <span className="font-semibold  flex items-center gap-2 text-xs md:text-base">
+                    <AiFillStar className=" text-xs md:text-base lg:text-xl text-yellow-700" />
+                    {movie.vote_average.toFixed(1)}{" "}
+                  </span>
+                  <button
+                    onClick={handleWatchClick}
+                    className=" bg-red-500 px-4 py-2 rounded text-white font-semibold text-xs"
+                  >
+                    Watch Trailer
+                  </button>
+                </div>
+                  <div>
+
+                  </div>
                 </div>
 
                 <p className="text-gray-700 hidden sm:flex mb-2 text-xs md:text-base ">
@@ -181,22 +198,6 @@ const MovieDetail = () => {
                   {movie.spoken_languages
                     .map((lang) => lang.english_name)
                     .join(", ")}
-                </div>
-                <div className=" flex gap-4 items-center text-xs md:text-base">
-                  <span className="font-semibold flex items-center gap-2">
-                    <AiFillHeart className=" text-xs md:text-base" />
-                    {movie.vote_count}{" "}
-                  </span>
-                  <span className="font-semibold  flex items-center gap-2 text-xs md:text-base">
-                    <AiFillStar className=" text-xs md:text-base" />
-                    {movie.vote_average.toFixed(1)}{" "}
-                  </span>
-                  <button
-                    onClick={handleWatchClick}
-                    className=" bg-red-500 px-4 py-2 rounded text-white font-semibold text-xs"
-                  >
-                    Watch Trailer
-                  </button>
                 </div>
               </div>
             </div>

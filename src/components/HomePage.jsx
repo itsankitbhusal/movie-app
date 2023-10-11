@@ -49,21 +49,24 @@ const HomePage = () => {
   return (
     <div className=" text-gray-800 py-4 sm:px-24">
       <div className=" text-center my-4 sm:mt-16">
-        <h1 className=" text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold sm:font-black tracking-tighter ">Movie App with TMDB API</h1>
-        <div>
-          <form
-            onSubmit={handleSearch}
-            className=" flex justify-center items-center gap-4 mt-8"
-          >
-            <input
-              type="text"
-              name="search"
-              onChange={(e) => setMovieSearchText(e.target.value)}
-              value={movieSearchText}
-              className="w-full sm:w-10/12 md:w-8/12 border-2 focus:border-blue-400 px-6 rounded-full focus:outline-none my-4 p-3 w-3/12"
-              placeholder="Enter a movie name to search"
-            />
-          </form>
+        <div className="flex flex-col gap-4 md:flex-row justify-between items-center mx-6">
+          <h1 className=" text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold sm:font-black tracking-tighter ">
+            Movie App
+          </h1>
+          <div className="">
+            <form
+              onSubmit={handleSearch}
+            >
+              <input
+                type="text"
+                name="search"
+                onChange={(e) => setMovieSearchText(e.target.value)}
+                value={movieSearchText}
+                className="w-full border-2 focus:border-blue-400 px-3 text-sm md:text-base md:my-4 p-2 md:py-2 md:px-4 rounded-full focus:outline-none "
+                placeholder="Enter a movie name to search"
+              />
+            </form>
+          </div>
         </div>
       </div>
       <div className="w-full grid place-items-center justify-start">
