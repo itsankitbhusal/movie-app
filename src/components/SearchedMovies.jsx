@@ -10,11 +10,11 @@ const SearchedMovies = ({ movies, error, loading }) => {
         </div>
       )}
       {movies.length > 0 && (
-        <div className=" w-full mb-20">
+        <div className=" w-full mb-20 ml-10 ">
           <div className=" font-bold sm:font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tighter w-full">
             Searched Movies
           </div>
-          <div className=" flex flex-column md:flex-row my-8 flex-wrap gap-4 justify-center items-center ">
+          <div className=" flex flex-column md:flex-row my-8 flex-wrap gap-4 justify-start items-center ">
             {movies.map((movie) => {
               return (
                 <div key={movie.id}>
