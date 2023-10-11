@@ -41,7 +41,7 @@ const MovieCard = ({ movie }) => {
         onClick={() => handleCardClick(movie)}
         onMouseEnter={(e) => handleMouseEnter(e)}
         onMouseLeave={handleMouseLeave}
-        className="relative shadow-gray-200 mb-4 outline outline-gray-200 outline-1 lg:w-[16vw] rounded-md hover:shadow-md  hover:shadow-gray-200 transition-all hover:cursor-pointer"
+        className="relative shadow-gray-200 mb-4 outline outline-gray-200 outline-1 lg:w-[16vw] rounded-md hover:shadow-md  hover:shadow-gray-200 transition-all hover:cursor-pointer hover:outline-blue-400"
       >
         {showModal ? <MyModal overview={movie.overview} /> : null}
 
