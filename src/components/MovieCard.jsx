@@ -25,8 +25,8 @@ const MovieCard = ({ movie }) => {
     return movieTitle;
   };
   const handleCardClick = (movie) => {
-    console.log("card clicked");
-    console.log("movie: ", movie);
+    // console.log("card clicked");
+    // console.log("movie: ", movie);
     navigate(`/movie/${movie.id}`);
   };
   const handleMouseEnter = (e) => {
