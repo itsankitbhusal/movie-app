@@ -4,8 +4,13 @@ import MovieCard from "./MovieCard";
 import Loader from "./Loader";
 import InfiniteScroll from "react-infinite-scroll-component";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setMovieData } from "../actions/movieActions";
+
 const MovieListing = () => {
-  const [movieData, setMovieData] = useState([]);
+  const moviesData = useSelector((state) => state.movie);
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
@@ -26,7 +31,7 @@ const MovieListing = () => {
       });
       const data = response.data;
       if (data) {
-        setMovieData((prevData) => [...prevData, ...data.results]);
+        dispatch(setMovieData(data.results));
         setLoading(false);
         setMaxPage(data?.total_pages);
       }
@@ -50,7 +55,7 @@ const MovieListing = () => {
     <>
       <InfiniteScroll
         className="flex flex-column md:flex-row my-8 flex-wrap gap-4 justify-center items-center "
-        dataLength={movieData.length}
+        dataLength={moviesData.length}
         next={handleNextPage}
         hasMore={page < maxPage}
         loader={<Loader />}
@@ -60,8 +65,8 @@ const MovieListing = () => {
           </p>
         }
       >
-        {movieData.length > 0
-          ? movieData.map((movie) => (
+        {moviesData.length > 0
+          ? moviesData.map((movie) => (
               <div key={movie.id}>
                 <MovieCard movie={movie} />
               </div>

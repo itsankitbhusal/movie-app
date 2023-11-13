@@ -4,8 +4,15 @@ import { toast } from "react-toastify";
 import MovieListing from "./MovieListing";
 import SearchedMovies from "./SearchedMovies";
 
+import { useSelector, useDispatch } from "react-redux";
+
+import { setMovieDetail } from "../actions/movieActions";
+
 const HomePage = () => {
-  const [searchMovieData, setSearchMovieData] = useState([]);
+  const movieDetail = useSelector((state) => state.movieDetail);
+
+  const dispatch = useDispatch();
+  
   const [loading, setLoading] = useState(false);
   const [movieSearchText, setMovieSearchText] = useState("");
   const [error, setError] = useState("");
@@ -33,7 +40,8 @@ const HomePage = () => {
       });
       const data = response.data;
       if (data.results.length > 0) {
-        setSearchMovieData((prevData) => [...data.results, ...prevData]);
+        // setSearchMovieData((prevData) => [...data.results, ...prevData]);
+        dispatch(setMovieDetail(data.results))
         setLoading(false);
       } else {
         setError("No data found");
@@ -54,9 +62,7 @@ const HomePage = () => {
             Movie App
           </h1>
           <div className="">
-            <form
-              onSubmit={handleSearch}
-            >
+            <form onSubmit={handleSearch}>
               <input
                 type="text"
                 name="search"
@@ -71,7 +77,7 @@ const HomePage = () => {
       </div>
       <div className="w-full grid place-items-center justify-start">
         <SearchedMovies
-          movies={searchMovieData}
+          movies={movieDetail}
           error={error}
           loading={loading}
         />
